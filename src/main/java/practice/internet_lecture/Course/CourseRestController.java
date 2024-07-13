@@ -2,8 +2,10 @@ package practice.internet_lecture.Course;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/course")
+@RequestMapping("/courses")
 public class CourseRestController {
 
     private final CourseService courseService;
@@ -16,6 +18,12 @@ public class CourseRestController {
     @PostMapping
     public CourseCreateDetailResponseDto createOne(@RequestBody CreateCourseRequestDto requestDto) {
         return courseService.createOne(requestDto);
+    }
+
+    // 강의 목록 조회
+    @GetMapping
+    public List<CourseCreateResponseDto> findAll() {
+        return courseService.findAll();
     }
 
 }

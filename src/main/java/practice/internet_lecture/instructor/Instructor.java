@@ -17,4 +17,16 @@ public class Instructor {
 
     private LocalDate birthday;
 
+    // getters
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public LocalDate getBirthday() {
+        return birthday;
+    }
 }

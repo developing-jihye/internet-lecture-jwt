@@ -5,6 +5,7 @@ import practice.internet_lecture.instructor.Instructor;
 import practice.internet_lecture.instructor.InstructorRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CourseService {
@@ -47,5 +48,21 @@ public class CourseService {
                 newCourse.getCreatedDateTime(),
                 newCourse.getModifiedDateTime()
         );
+    }
+
+    // 강의 목록 조회
+    public List<CourseCreateResponseDto> findAll() {
+
+        return courseRepository.findAll()
+                .stream()
+                .map(course -> new CourseCreateResponseDto(
+                        course.getId(),
+                        course.getTitle(),
+                        course.getInstructor().getName(),
+                        course.getPrice(),
+                        0,
+                        course.getCategory(),
+                        course.getCreatedDateTime()
+                )).toList();
     }
 }
