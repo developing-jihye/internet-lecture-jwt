@@ -65,4 +65,21 @@ public class CourseService {
                         course.getCreatedDateTime()
                 )).toList();
     }
+
+    // 강의 상세 조회
+    public CourseCreateDetailResponseDto findById(Long courseId) {
+
+        Course selectedCourse = courseRepository.findById(courseId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 강의가 없습니다."));
+
+        return new CourseCreateDetailResponseDto(
+                selectedCourse.getTitle(),
+                selectedCourse.getDescription(),
+                selectedCourse.getPrice(),
+                new ArrayList<>(),
+                selectedCourse.getCategory(),
+                selectedCourse.getCreatedDateTime(),
+                selectedCourse.getModifiedDateTime()
+        );
+    }
 }

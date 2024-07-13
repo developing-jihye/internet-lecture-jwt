@@ -26,4 +26,10 @@ public class CourseRestController {
         return courseService.findAll();
     }
 
+    // 강의 상세 조회
+    @GetMapping("/{courseId}")
+    public CourseCreateDetailResponseDto findById(@PathVariable Long courseId) {
+        return courseService.findById(courseId);
+    }
+
 }
