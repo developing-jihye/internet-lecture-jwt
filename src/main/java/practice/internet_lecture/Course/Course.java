@@ -71,4 +71,15 @@ public class Course {
     public LocalDateTime getModifiedDateTime() {
         return modifiedDateTime;
     }
+
+    // 메서드
+    public void updateTitleDescriptionPrice(
+            String title,
+            String description,
+            Integer price
+    ) {
+        this.title = title;
+        this.description = description;
+        this.price = price;
+    }
 }

@@ -1,6 +1,6 @@
 package practice.internet_lecture.Course;
 
-public record CreateCourseRequestDto(
+public record CourseCreateRequestDto(
         String title,
         Long instructorId,
         String description,

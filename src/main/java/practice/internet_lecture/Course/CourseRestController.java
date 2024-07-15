@@ -16,7 +16,7 @@ public class CourseRestController {
 
     // 강의 하나 등록
     @PostMapping
-    public CourseCreateDetailResponseDto createOne(@RequestBody CreateCourseRequestDto requestDto) {
+    public CourseCreateDetailResponseDto createOne(@RequestBody CourseCreateRequestDto requestDto) {
         return courseService.createOne(requestDto);
     }
 
@@ -30,6 +30,12 @@ public class CourseRestController {
     @GetMapping("/{courseId}")
     public CourseCreateDetailResponseDto findById(@PathVariable Long courseId) {
         return courseService.findById(courseId);
+    }
+
+    // 강의 수정
+    @PutMapping("/{courseId}")
+    public void update(@PathVariable Long couseId, @RequestBody CourseUpdateRequestDto body) {
+        courseService.updateById(couseId, body);
     }
 
 }

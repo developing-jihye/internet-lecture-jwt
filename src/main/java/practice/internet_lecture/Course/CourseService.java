@@ -6,6 +6,7 @@ import practice.internet_lecture.instructor.InstructorRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class CourseService {
@@ -19,7 +20,7 @@ public class CourseService {
     }
 
     // 강의 하나 등록
-    public CourseCreateDetailResponseDto createOne(CreateCourseRequestDto requestDto) {
+    public CourseCreateDetailResponseDto createOne(CourseCreateRequestDto requestDto) {
 
         // client가 강의 id 안 보낼 경우
         Long instructorId = requestDto.instructorId();
@@ -81,5 +82,20 @@ public class CourseService {
                 selectedCourse.getCreatedDateTime(),
                 selectedCourse.getModifiedDateTime()
         );
+    }
+
+    // 강의 수정
+    public void updateById(Long courseId, CourseUpdateRequestDto body) {
+        Course course = courseRepository.findById(courseId).orElseThrow(
+                () -> new NoSuchElementException("해당 강의가 없습니다.")
+        );
+
+        course.updateTitleDescriptionPrice(
+                body.title(),
+                body.description(),
+                body.price()
+        );
+
+        courseRepository.save(course);
     }
 }
