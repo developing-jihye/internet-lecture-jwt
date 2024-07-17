@@ -18,4 +18,10 @@ public class StudentRestConstroller {
     public String create(@RequestBody StudentRegisterRequestDto requestDto) {
         return studentService.register(requestDto);
     }
+
+    // 수강 신청
+    @PostMapping("/enrollments")
+    public String enroll(@RequestBody EnrollmentRequestDto requestDto) {
+        return studentService.enroll(requestDto);
+    }
 }
