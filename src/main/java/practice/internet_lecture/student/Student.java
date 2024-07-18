@@ -1,9 +1,6 @@
 package practice.internet_lecture.student;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Student {
@@ -14,13 +11,17 @@ public class Student {
 
     private String nickname;
 
+    @Column(nullable = false)
+    private String password;
+
     // constructors
     public Student() {
     }
 
-    public Student(String email, String nickname) {
+    public Student(String email, String nickname, String password) {
         this.email = email;
         this.nickname = nickname;
+        this.password = password;
     }
 
     // getters

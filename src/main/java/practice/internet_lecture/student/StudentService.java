@@ -22,7 +22,8 @@ public class StudentService {
 
         studentRepository.save(new Student(
                 requestDto.email(),
-                requestDto.nickname()
+                requestDto.nickname(),
+                SecurityUtils.sha256Encrypt(requestDto.password())
         ));
 
         return "회원 가입이 완료되었습니다.";

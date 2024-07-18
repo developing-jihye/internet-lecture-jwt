@@ -4,11 +4,11 @@ VALUES
   ('1976-11-26', '정승제'),
   ('1989-01-01', '현우진');
 
-INSERT INTO student (email, nickname)
+INSERT INTO student (email, nickname, password)
 VALUES
-  ('test1@example.com', '철수'),
-  ('test2@example.com', '영희'),
-  ('test3@example.com', '민수');
+  ('test1@example.com', '철수', '7293ee3c60737ccf93f2aeb6af3a666d01f060fe495ae9b69bcdf7df934437d7'), -- 'mypw1!'
+  ('test2@example.com', '영희', 'd34eb4914a78fffa6d68663556a153cfbbc959fce06675e7015b28faa8e53c68'), -- 'mypw2!'
+  ('test3@example.com', '민수', '760860966656230153e2103951e992f19324e16d5ea66c3c8df8b35a245df076'); -- 'mypw3!'
 
 INSERT INTO course (instructor_id, price, created_date_time, modified_date_time, description, title, category)
 VALUES
