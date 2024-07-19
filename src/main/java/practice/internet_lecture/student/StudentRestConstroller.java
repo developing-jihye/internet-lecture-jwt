@@ -1,5 +1,6 @@
 package practice.internet_lecture.student;
 
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,12 @@ public class StudentRestConstroller {
     @PostMapping("/students")
     public String create(@RequestBody StudentRegisterRequestDto requestDto) {
         return studentService.register(requestDto);
+    }
+
+    // 로그인
+    @PostMapping("/login")
+    public void login(@Valid @RequestBody LoginRequestDto requestDto) {
+        studentService.checkEmailPassword(requestDto);
     }
 
     // 수강 신청

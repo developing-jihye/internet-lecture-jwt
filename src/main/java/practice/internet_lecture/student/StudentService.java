@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 import practice.internet_lecture.Course.Course;
 import practice.internet_lecture.Course.CourseRepository;
 
+import java.util.NoSuchElementException;
+
 @Service
 public class StudentService {
 
@@ -27,6 +29,16 @@ public class StudentService {
         ));
 
         return "회원 가입이 완료되었습니다.";
+    }
+
+    // 로그인
+    public void checkEmailPassword(LoginRequestDto requestDto) {
+        Student student = studentRepository.findByEmail(requestDto.email())
+                .orElseThrow(() -> new NoSuchElementException("ID 또는 PW가 틀립니다."));
+
+        if (! student.authenticate(requestDto.password())) {
+            throw new IllegalArgumentException("ID 또는 PW가 틀립니다.");
+        }
     }
 
     // 수강 신청
