@@ -3,6 +3,7 @@ package practice.internet_lecture.student;
 import org.springframework.stereotype.Service;
 import practice.internet_lecture.Course.Course;
 import practice.internet_lecture.Course.CourseRepository;
+import practice.internet_lecture.JwtProvider;
 
 import java.util.NoSuchElementException;
 
@@ -12,11 +13,13 @@ public class StudentService {
     private final StudentRepository studentRepository;
     private final CourseRepository courseRepository;
     private final EnrollmentRepository enrollmentRepository;
+    private final JwtProvider jwtProvider;
 
-    public StudentService(StudentRepository studentRepository, CourseRepository courseRepository, EnrollmentRepository enrollmentRepository) {
+    public StudentService(StudentRepository studentRepository, CourseRepository courseRepository, EnrollmentRepository enrollmentRepository, JwtProvider jwtProvider) {
         this.studentRepository = studentRepository;
         this.courseRepository = courseRepository;
         this.enrollmentRepository = enrollmentRepository;
+        this.jwtProvider = jwtProvider;
     }
 
     // 회원 가입
@@ -32,13 +35,28 @@ public class StudentService {
     }
 
     // 로그인
-    public void checkEmailPassword(LoginRequestDto requestDto) {
+    private Student authenticate(LoginRequestDto requestDto) {
+        // email 검증
         Student student = studentRepository.findByEmail(requestDto.email())
-                .orElseThrow(() -> new NoSuchElementException("ID 또는 PW가 틀립니다."));
+                .orElseThrow(() -> new IllegalArgumentException("ID 또는 PW가 틀립니다."));
 
-        if (! student.authenticate(requestDto.password())) {
+        // password 검증
+        if (!student.authenticate(requestDto.password())) {
             throw new IllegalArgumentException("ID 또는 PW가 틀립니다.");
         }
+
+        return student;
+    }
+
+    public String generateToken(Student student) {
+        // 주입받은 JwtProvider 오브젝트를 통해 토큰 발급
+        return jwtProvider.createToken(student.getEmail());
+    }
+
+    public LoginResponseDto authenticateAndGenerateToken(LoginRequestDto requestDto) {
+        Student student = authenticate(requestDto);
+        String token = generateToken(student);
+        return new LoginResponseDto(token);
     }
 
     // 수강 신청

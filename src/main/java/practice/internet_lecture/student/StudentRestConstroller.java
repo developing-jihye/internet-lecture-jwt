@@ -22,8 +22,8 @@ public class StudentRestConstroller {
 
     // 로그인
     @PostMapping("/login")
-    public void login(@Valid @RequestBody LoginRequestDto requestDto) {
-        studentService.checkEmailPassword(requestDto);
+    public LoginResponseDto login(@Valid @RequestBody LoginRequestDto requestDto) {
+        return studentService.authenticateAndGenerateToken(requestDto);
     }
 
     // 수강 신청
